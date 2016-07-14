@@ -1,6 +1,6 @@
 //user model
 var User = require('mongoose').model('User');
-exports.signup = function( req, res){
+exports.signup = function(req, res, next){
 	var user = new User(req.body);
 
 	user.save(function(err){
@@ -13,11 +13,15 @@ exports.signup = function( req, res){
 	});
 };
 
+exports.userlist = function(req, res, next){
+	User.find(function(err, users){
+		if(err){
+			return next(err);
+		} else{
+			res.json(users);	
+		}
+
+	});
+};
 
 
-
-//exports.signup = function(req, res, next){
-//	res.render('users/signup', {
-//		title: "Sign up"	
-//	});
-//};

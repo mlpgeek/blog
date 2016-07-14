@@ -3,6 +3,8 @@ var router = express.Router();
 var controller = require('../controllers/user_controller');
 
 /* GET users listing. */
+router.get('/userlists', controller.userlist);
+
 router.get('/signup', function(req, res, next) {
 	res.render('users/signup',{ title: 'Sign up'});
 });
