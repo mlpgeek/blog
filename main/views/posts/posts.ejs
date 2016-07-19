@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<% include partials/head %>
+	<p> <%= description %></p>
+	<div class="input">
+		<form action="/post/create" method=post>
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email">
 
-</head>
-<body>
-	
-</body>
-</html>
+			<label for="passwordl">Password</label>
+			<input type="password" name="password" id="password">
+
+			<button type="submit">Sign in</button>
+		</form>
+		<a href="/users/signup" class="button">Sign up</a>
+	</div>
+<% include partials/footer %>
 

@@ -1,22 +1,27 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 var controller = require('../controllers/user_controller');
+var isauthenticate = require('../auth/authenticate.js');
 
-/* GET users listing. */
-router.get('/userlists', controller.userlist);
+//register
+router.get('/register', controller.register, controller.render);
+router.post('/register', controller.register, controller.render);
 
-router.get('/signup', function(req, res, next) {
-	res.render('users/signup',{ title: 'Sign up'});
+//signin
+router.get('/signin', controller.signin, controller.render);
+router.post('/signin', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/signin', failureFlash: true }), function(req,res){
+    res.redirect('/');
 });
-router.post('/signup', controller.signup);
 
-router.get('/:email', function(req, res, next) {
-    res.render('users/detail', { output: req.params.id });
-});
+//signout
+router.get('/signout', controller.signout);
 
-router.post('/submit', function(req, res, next) {
-    var email = req.body.email;
-    res.redirect('/users/' + email);
-});
+//user profile 
+router.get('/profile', isauthenticate.isAuthenticated, controller.profile, controller.render);
+
+//user list
+router.get('/userlist', controller.userlist);
+
 
 module.exports = router;

@@ -1,18 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var controller = require('../controllers/post_controller.js');
 
 
-router.get('/', function(req, res, next) {
-    res.render('posts/post');
-});
+router.post('/posts', controller.create, controller.render);
 
-router.get('/:id', function(req, res, next) {
-    res.render('posts/detail', { output: req.params.id });
-});
+router.get('/posts', controller.list, controller.render);
 
-router.post('/submit', function(req, res, next) {
-    var id = req.body.id;
-    res.redirect('/post/' + id);
-});
+router.get('/:number', controller.detail, controller.render);
+
+router.put('/:number', controller.update, controller.render);
 
 module.exports = router;
