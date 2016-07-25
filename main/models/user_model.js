@@ -3,12 +3,16 @@ var mongoose = require('mongoose'),
 var bcrypt = require('bcryptjs');
 
 var UserSchema = new Schema({
-        firstname: String,
-	    lastname : String,
+        name: {type: String, required: true, trim: true},
+        username : {type: String, required: true, unique: true}, 
     	email : {
             type: String,
-            unique: true
+            unique: true,
+            trim: true
         },
+        followers: [{type: Schema.ObjectId, ref: 'User'}],
+        subscribe: [{type: Schema.ObjectId, ref: 'Blog'}],
+        signupAt: {type: Date, default: Date()},
     	password : String
 });
 

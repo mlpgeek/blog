@@ -12,10 +12,12 @@ var mongoose = require('./config/mongoose');
 var db = mongoose();
 var passportConfig = require('./config/passport');
 var passport = passportConfig();
+var csrf = require('csurf');
 
 //routes
 var index = require('./routes/index');
 var users = require('./routes/users');
+var blog = require('./routes/blog');
 var post = require('./routes/post');
 var test = require('./routes/test');
 
@@ -23,8 +25,8 @@ var test = require('./routes/test');
 //init app
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// view engine setup
 app.set('view engine', 'ejs');
 
 //logger
@@ -80,10 +82,14 @@ app.use(function(req, res, next){
 	next();	
 });
 
+//csrf
+app.use(csrf());
+
 
 //routes
 app.use('/', index);
 app.use('/users', users);
+app.use('/blog', blog);
 app.use('/post', post);
 app.use('/test', test);
 

@@ -9,15 +9,16 @@
 					</div>
 					<div class="panel-body">
 						<form method=post action="/users/register" role="form">
+							<input type="hidden" name="_csrf" value="<%= csrf %>">
 							<div class="row">
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
-										<input type="text" name="firstname" id="first_name" class="form-control input-sm" placeholder="first Name">
+										<input type="text" name="name" id="first_name" class="form-control input-sm" placeholder="Name">
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
-										<input type="text" name="lastname" id="last_name" class="form-control input-sm" placeholder="Last Name">
+										<input type="text" name="username" id="last_name" class="form-control input-sm" placeholder="User Name">
 									</div>
 								</div>
 							</div>

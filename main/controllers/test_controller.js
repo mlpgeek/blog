@@ -1,11 +1,15 @@
 //user model
-exports.test = function(req, res, next){
+exports.main = function(req, res, next){
+    req.body.templateData = {
+        template: 'test/main',
+        name: 'hyun',
+        title: 'MLP' 
+    }
+    next();
 };
 
 exports.render = function(req, res){
-	res.render('test/test', {
-		test1: req.body.fuck,
-		test2: "fuck2"	
-	});	
+    var data = req.body.templateData;
+	res.render(data.template, data);
 };
 

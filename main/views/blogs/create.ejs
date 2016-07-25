@@ -1,0 +1,13 @@
+<% include ../partials/head %> 
+	<div class="container">
+		<form method=post action="/blog/create" class="form-signin">
+            <input type="hidden" name="_csrf" value="<%= csrf %>">
+			<h2 class="form-signin-heading">Please sign in</h2>
+				<label for="inputName" class="sr-only">Blog Name</label>
+				<input type="text" name="name" id="inputName" class="form-control" placeholder="Blog Name" required autofocus>
+				<label for="inputDescription" class="sr-only">Description</label>
+				<textarea name="description" id="inputDescription" class="form-control" placeholder="Content"></textarea>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+		</form>
+	</div> 
+<% include ../partials/footer %>

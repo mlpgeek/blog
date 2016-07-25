@@ -6,13 +6,14 @@ exports.register = function(req, res, next){
     if(req.method === 'GET'){
         req.body.templateData = {
             stylesheet : '/user/register.css',
-            template : 'register'
+            template : 'register',
+            csrf : req.csrfToken()
         };
         next();
     }else if(req.method === 'POST'){
         //Validation
-        req.checkBody('firstname', 'Firstname is required').notEmpty();
-        req.checkBody('lastname', 'Lastname is required').notEmpty();
+        req.checkBody('name', 'name is required').notEmpty();
+        req.checkBody('username', 'username is required').notEmpty();
         req.checkBody('email', 'Email is required').notEmpty();
         req.checkBody('email', 'Email is\' not valid').isEmail();
         req.checkBody('password', 'password is required').notEmpty();
@@ -24,8 +25,8 @@ exports.register = function(req, res, next){
             res.redirect('/users/register');
         } else{
             var newUser = new User({
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
+                name: req.body.name,
+                username: req.body.username,
                 email: req.body.email,
                 password: req.body.password
             });
@@ -59,8 +60,20 @@ exports.register = function(req, res, next){
 exports.signin = function(req, res, next){
     req.body.templateData = {
         stylesheet : '/user/signin.css',
-        template : 'signin'
+        template : 'signin',
+        csrf: req.csrfToken()
     };
+
+    if(req.method === 'POST'){
+        req.checkBody('email', 'email is required').notEmpty();
+        req.checkBody('password', 'passowrd is required').notEmpty();
+
+        var errors = req.validationErrors();
+        if(errors){
+            req.flash('error_msg', 'fill the forms'); 
+            res.redirect('/users/signin');
+        }
+    }
 	next();
 };
 
@@ -78,17 +91,20 @@ exports.profile = function(req, res, next){
     next();
 };
 
+exports.remove = function(req, res, next){
+    console.log('abc');
+    User.remove({_id: req.user._id}, (err) => {
+        if(err){
+            req.flash('error_msg', 'Error occured!');
+            res.redirect('/users/profile');
+        }else{
+            req.flash('Your info was deleted from site');
+            res.redirect('/');    
+        }
+    });    
+}
+
 exports.render = function(req, res){
     var data = req.body.templateData;
 	res.render('users/' + data.template, data); 
-};
-
-exports.userlist = function(req, res, next){
-	User.find(function(err, users){
-		if(err){
-			return next(err);
-		} else{
-			res.json(users);	
-		}
-	});
 };

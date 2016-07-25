@@ -1,26 +1,13 @@
 var mongoose = require('mongoose'), 
     Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId
 
 var PostSchema = new Schema({
-	postNum: {
-		type: Number,
-		require: true,
-		unique: true	
-	}, 
-	title:{ 
-		type: String,
-		require: true,
-	},
-	published:{ 
-		type: Date,
-		default: Date.now
-	},
-	content: String,
-	/*published: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}*/
-	//comments : { type: Schema.ObjectId, ref: 'Comment'}
+    title: {type: String, required: true},
+    content: String,
+    createdAt: {type: Date, default: Date.now},
+    modifiedAt: Date,
+    createdBy: {type: ObjectId, ref: 'User'},
 });
 
 mongoose.model('Post', PostSchema);

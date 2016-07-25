@@ -6,7 +6,17 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = require('../app');
 var debug = require('debug')('main:server');
+var fs = require('fs');
 var http = require('http');
+//var https = require('https');
+
+/*var options = {
+    key: fs.readFileSync(__dirname + '/../ssl/server.key'),
+    cert: fs.readFileSync(__dirname + '/../ssl/server.crt'),
+    ca: fs.readFileSync(__dirname + '/../ssl/ca.crt'),
+    requestCert: true,
+    rejectUnauthorized: false,
+};*/
 
 /**
  * Get port from environment and store in Express.
@@ -19,6 +29,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+//var server = https.createServer(options, app);
 var server = http.createServer(app);
 
 /**
