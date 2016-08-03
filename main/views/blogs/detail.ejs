@@ -1,3 +1,29 @@
 <% include ../partials/head %> 
-    <%= blog %>
+    <div><h1><%= blog.name %></h1></div>
+    <ul>
+        <li><%= blog.description %></li>
+        <li><%= blog.createdBy.username %></li>
+        <li><%= blog.createdBy.email %></li>
+        <% for(let i=0;i<blog.categories.length;i++){ %>
+            <li><a href="/blog/<%= userId %>/<%= blog.name %>/<%= blog.categories[i].title%>"><%= blog.categories[i].title %></a></li>
+        <% } %>
+        <li><%= blog.createdAt %></li>
+    </ul>
+
+    <% if (isOwned) { %>
+        <div><a href="/blog/<%= blog.createdBy._id %>/<%= blog.name %>/modify" class="btn btn-primary">Modify</a></div>
+        <div><a href="/blog/<%= userId %>/<%= blog.name %>/createpost" class="btn btn-lg btn-warning col-sm-1" type="submit" role="button">POST</a></div>
+
+        <form method=post action="/blog/<%= blog.createdBy._id %>/<%= blog.name %>/createCategory" class="form-horizontal">
+            <input type="hidden" name="_csrf" value="<%= csrf %>">
+            <div class="form-group">
+                <label for="category" class="control-label col-sm-2">Category</label>
+                <div class="col-sm-4">
+                    <input type="text" name="category" id="category" class="form-control" placeholder="Category" required autofocus>
+                </div>
+			    <button class="btn btn-lg btn-primary col-sm-offset-10 col-sm-1" type="submit">Submit</button>
+            </div> 
+        </form>
+    <% } %>
+
 <% include ../partials/footer %>

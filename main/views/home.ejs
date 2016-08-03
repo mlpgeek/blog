@@ -10,8 +10,9 @@
                 <li role="presentation"><a href="/users/signin">Sign in</a></li>
             <% } %>
             <% if(user){ %>
-		        <li role="presentation"><a href="/users/signout">Sign out</a></li>
+		        <li role="presentation"><a href="/blog">Blog</a></li>
 		        <li role="presentation"><a href="/users/profile">Profile</a></li>
+		        <li role="presentation"><a href="/users/signout">Sign out</a></li>
             <% } %>
 		  </ul>
 		</nav>
@@ -23,6 +24,21 @@
 			<%= description %>
 		</div>
 	</div>
+
+    <% for(let index=0; index < blogs.length; index++) { %>
+        <div>
+            <ul>
+                <li>
+                    <h2><a href='/blog/<%= blogs[index].createdBy._id %>/<%= blogs[index].name %>'>
+                        <i class="glyphicon glyphicon-sunglasses"><%= blogs[index].name %>
+                        </i></a>
+                    </h2>
+                </li>
+                <li><%= blogs[index].createdBy.username %></li>
+                <li><%= blogs[index].createdAt %></li>
+            </ul>
+        </div>        
+    <% } %>
 
      
 

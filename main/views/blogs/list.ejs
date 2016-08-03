@@ -2,11 +2,9 @@
     <% if (blogs.length != 0) { %>
         <% for (let index=0; index<blogs.length; index++) { %>
             <div>
-                <a href="/blog/<%= blogs[index].name %>"><h2><i class="glyphicon glyphicon-home"></i><%=blogs[index].name %></h2></a>
-                <div> 
-                    <%= blogs[index].description %><br> 
-                    <%= blogs[index].createdAt %><br> 
-                </div>
+                <a href="/blog/<%= blogs[index].createdBy %>/<%= blogs[index].name %>"><h2><i class="glyphicon glyphicon-home"></i><%=blogs[index].name %></h2></a>
+                <%= blogs[index].description %><br> 
+                <%= blogs[index].createdAt%><br> 
             </div>
         <% } %>
     <% } %> 

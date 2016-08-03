@@ -3,6 +3,7 @@ var config = require('./config'),
     fs = require('fs');
 
 module.exports = function(){
+    mongoose.Promise = require('bluebird');
 	var db = mongoose.connect(config.db);
 
 	//load all files in models dir

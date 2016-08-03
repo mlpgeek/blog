@@ -1,0 +1,15 @@
+<% include ../partials/head %>
+    <h1><%= blogName %></h1>
+    <h2>Category : <%= category.title %></h2>
+    <ul>
+    </ul>
+        <% if(category.posts.length != 0) { %>
+            <% for(var i=0; i<category.posts.length; i++) { %>
+                    <li><%= category.posts[i] %></li>
+            <% } %>
+        <% } else { %>
+            This category doesn't have any post.       
+        <% } %>
+
+<% include ../partials/footer %>
+
